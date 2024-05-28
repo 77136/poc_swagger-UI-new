@@ -3,3 +3,5 @@ Poc de teste do uso do swaggerUI para criação de documentação em arquivos de
 
 Para testar utilize os comando: node servidor.js 
 para iniciar o servidor local para visualização.
+
+para visulizar acessar : http://localhost:3000/api-docs/#/
