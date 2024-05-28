@@ -1,0 +1,87 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Throttling Configuration API for EKS",
+      "description": "API para gerenciar a configuração de throttling em uma infraestrutura EKS.",
+      "version": "1.0.0"
+    },
+    "servers": [
+      {
+        "url": "http://localhost:3000",
+        "description": "Servidor de Desenvolvimento"
+      }
+    ],
+    "paths": {
+      "/throttlingConfig": {
+        "get": {
+          "summary": "Obtém a configuração atual de throttling",
+          "operationId": "getThrottlingConfig",
+          "responses": {
+            "200": {
+              "description": "Configuração de throttling retornada com sucesso",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ThrottlingConfig"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "put": {
+          "summary": "Atualiza a configuração de throttling",
+          "operationId": "updateThrottlingConfig",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ThrottlingConfig"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Configuração de throttling atualizada com sucesso",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ThrottlingConfig"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "ThrottlingConfig": {
+          "type": "object",
+          "properties": {
+            "globalLimit": {
+              "type": "integer",
+              "description": "Limite global de requisições por segundo"
+            },
+            "perNamespaceLimits": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "integer"
+              },
+              "description": "Limites de requisição por segundo por namespace"
+            }
+          },
+          "example": {
+            "globalLimit": 100,
+            "perNamespaceLimits": {
+              "default": 50,
+              "kube-system": 30
+            }
+          }
+        }
+      }
+    }
+  }
